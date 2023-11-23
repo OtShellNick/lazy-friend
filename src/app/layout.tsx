@@ -13,9 +13,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <main className='h-[100vh]'>{children}</main>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 };
