@@ -1,22 +1,26 @@
 version: '3'
-services: 
+services:
   web:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
-    volumes: 
+    volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    ports: 
-      - 80:3000
-    depends_on: 
+    ports:
+      - "80:3000"
+    depends_on:
       - mongo
-    environment: 
-      - MONGODB_URI=mongodb://mongo:27017/lazy
+    environment:
+      - MONGODB_URI
 
   mongo:
     image: mongo
+    restart: always
     volumes:
       - ./data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     ports:
-      - 27017:27017
+      - "27017:27017"

@@ -14,7 +14,40 @@ const register = yup.object().shape({
     .required('Repeat password is required'),
   specialization: yup
     .string()
-    .oneOf(['frontend', 'backend', 'designer'], 'Invalid specialization')
+    .oneOf(
+      [
+        'PM',
+        'SA',
+        'BA',
+        'SD',
+        'DM',
+        'DevOps',
+        'Product',
+        'Marketing',
+        'SMM',
+        'Traffic',
+        'MM',
+        'QAM',
+        'QAA',
+        'QAL',
+        'Backend',
+        'Frontend',
+        'Python',
+        'Java',
+        'Android',
+        'IOS',
+        'C++',
+        'Go',
+        'DS',
+        'ComputerVision',
+        'HR',
+        'WEB',
+        'Cloud',
+        'DataEngineer',
+        'other',
+      ],
+      'Invalid specialization',
+    )
     .required('Specialization is required'),
 });
 

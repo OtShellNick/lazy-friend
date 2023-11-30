@@ -1,12 +1,19 @@
 'use client';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+import { SPECIALIZATIONS } from '@/data';
+import { TUserRegisterData } from '@/types';
 import { Schema } from '@lib/validators';
+import { registerThunk } from '@redux/Auth/thunks';
+import { useAppDispatch } from '@redux/store';
 import { Button } from '@ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@ui/form';
 import { Input } from '@ui/input';
+import { ScrollArea } from '@ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ui/select';
 
 type TInputs = {
@@ -15,16 +22,67 @@ type TInputs = {
   email: string;
   password: string;
   repeatPassword: string;
-  specialization: 'frontend' | 'backend' | 'designer';
+  specialization:
+    | 'PM'
+    | 'SA'
+    | 'BA'
+    | 'SD'
+    | 'DM'
+    | 'DevOps'
+    | 'Product'
+    | 'Marketing'
+    | 'SMM'
+    | 'Traffic'
+    | 'MM'
+    | 'QAM'
+    | 'QAA'
+    | 'QAL'
+    | 'Backend'
+    | 'Frontend'
+    | 'Python'
+    | 'Java'
+    | 'Android'
+    | 'IOS'
+    | 'C++'
+    | 'Go'
+    | 'DS'
+    | 'ComputerVision'
+    | 'HR'
+    | 'WEB'
+    | 'Cloud'
+    | 'DataEngineer'
+    | 'other';
 };
 
 export const RegisterForm = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const form = useForm<TInputs>({
     resolver: yupResolver(Schema.register),
   });
   //eslint-disable-next-line
-  const onSubmit: SubmitHandler<TInputs> = data => console.log(data);
+  const onSubmit: SubmitHandler<TInputs> = data => {
+    const userData: TUserRegisterData = {
+      name: data.name,
+      nickname: data.nickname,
+      email: data.email,
+      password: data.password,
+      specialization: data.specialization,
+    };
 
+    dispatch(registerThunk(userData));
+    router.push('/login');
+  };
+
+  const renderSpecialization = useMemo(() => {
+    return SPECIALIZATIONS.map(spec => {
+      return (
+        <SelectItem value={spec.value} key={spec.value}>
+          {spec.label}
+        </SelectItem>
+      );
+    });
+  }, []);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='grid gap-4'>
@@ -117,10 +175,8 @@ export const RegisterForm = () => {
                     <SelectValue placeholder='Выберите вашу специальность' />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value='frontend'>Front-End</SelectItem>
-                  <SelectItem value='backend'>Back-End</SelectItem>
-                  <SelectItem value='designer'>Designer</SelectItem>
+                <SelectContent className='h-[40vh]'>
+                  <ScrollArea>{renderSpecialization}</ScrollArea>
                 </SelectContent>
               </Select>
               <FormMessage />
