@@ -3,12 +3,12 @@ import { Metadata } from 'next';
 import { Template } from '@components/Template';
 
 export const metadata: Metadata = {
-  title: 'Главная',
+  title: 'Помощь',
 };
-const Home = () => {
-  return <Template>Main page</Template>;
+const Help = () => {
+  return <Template>Помощь</Template>;
 };
 
-export default Home;
+export default Help;
 
 export const revalidate = 600;

@@ -12,3 +12,19 @@ export type TUserRegisterData = {
   password: string;
   specialization: string;
 };
+
+export type TUserResponse = {
+  id: string;
+  name: string;
+  nickname: string;
+  email: string;
+  specialization: string;
+  role: string;
+};
+
+export type TNavigationItem = {
+  title: string;
+  description?: string;
+  href: string;
+  children?: TNavigationItem[];
+};

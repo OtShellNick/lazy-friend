@@ -29,7 +29,7 @@ export const Dropdown: FC<TDropdownProps> = ({ children, label, menu, className 
       <DropdownMenuTrigger className='focus:outline-none focus-visible:outline-none'>
         {children}
       </DropdownMenuTrigger>
-      <DropdownMenuContent className={className} sideOffset={12}>
+      <DropdownMenuContent className={className} sideOffset={4}>
         <DropdownMenuLabel>{label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {renderMenu}

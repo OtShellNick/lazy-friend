@@ -1,5 +1,6 @@
 import { compare } from 'bcrypt';
 import NextAuth from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 import mongo from '@lib/mongo';
@@ -17,7 +18,7 @@ type TUser = {
   specialization: string;
 };
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -82,6 +83,7 @@ const handler = NextAuth({
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

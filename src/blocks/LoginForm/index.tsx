@@ -39,7 +39,6 @@ export const LoginForm = () => {
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     setError('');
     await signIn('credentials', { ...data, redirect: false }).then(value => {
-      console.log('value', value);
       if (value) {
         const { status } = value;
 

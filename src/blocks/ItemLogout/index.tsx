@@ -10,7 +10,7 @@ export const ItemLogout = () => {
 
   return (
     <div onClick={onLogout} className='flex items-center justify-between w-full'>
-      <span>Logout</span>
+      <span>Выход</span>
       <ExitIcon />
     </div>
   );

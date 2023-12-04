@@ -23,6 +23,7 @@ export async function POST(request: Request) {
     const saveUserData = {
       ...data,
       password: await hashPassword(data.password),
+      role: 'user',
     };
 
     const user = await users.insertOne(saveUserData);
