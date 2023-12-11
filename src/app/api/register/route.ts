@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 
 import { TUserRegisterData } from '@/types';
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     return new NextResponse(
       JSON.stringify({
         status: 'success',
-        data: {},
+        data: user,
       }),
     );
   } catch (e) {

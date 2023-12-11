@@ -2,7 +2,7 @@
 
 import { getProjectData } from '@redux/selectors';
 import { useAppSelector } from '@redux/store';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@ui/card';
 
 type TPreviewProjectBlockProps = {
   className?: string;

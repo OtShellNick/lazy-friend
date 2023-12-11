@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { Schema, TProject } from '@lib/validators';
 import { setProjectName, setProjectDescription } from '@redux/Project/slice';
 import { useAppDispatch } from '@redux/store';
-import { Button } from '@ui/button';
 import {
   Form,
   FormControl,
@@ -34,6 +33,7 @@ export const CreateProjectForm = () => {
 
   const onSubmit = (data: TProject) => {
     console.log(data);
+    setError('');
   };
 
   const onNameChange = () => {

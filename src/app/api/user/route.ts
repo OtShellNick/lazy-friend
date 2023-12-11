@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
 import { headers } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@lib/authOptions';
 import mongo from '@lib/mongo';
 
-export async function GET(req: NextApiRequest) {
+export async function GET(req: NextRequest | Request) {
   const res = {
     ...NextResponse.next(),
     getHeader: (t: string) => headers().get(t),
@@ -14,7 +14,7 @@ export async function GET(req: NextApiRequest) {
   } as unknown as NextApiResponse;
 
   try {
-    const session = await getServerSession(req, res, authOptions);
+    const session = await getServerSession(req as unknown as NextApiRequest, res, authOptions);
 
     if (!session) return Response.json({ error: 'Не авторизован' }, { status: 401 });
 

@@ -6,7 +6,7 @@ import { SESSION_STATUS } from '@/data';
 import { Preloader } from '@components/Preloader';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
