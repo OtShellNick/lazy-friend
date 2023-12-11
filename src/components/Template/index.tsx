@@ -12,11 +12,11 @@ type TTemplateProps = {
 
 export const Template: React.FC<TTemplateProps> = ({ children, className = '' }) => {
   return (
-    <div className='grid grid-rows-layout h-[100vh]'>
+    <div className='grid grid-rows-layout h-[100dvh]'>
       <Header />
       <div className='h-full'>
         {/*<Aside />*/}
-        <Main className={`${className} flex flex-col`}>
+        <Main className={`${className} flex flex-col h-full`}>
           <Info
             className='mb-4'
             title='Сайт В Разработке'

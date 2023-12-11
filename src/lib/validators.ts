@@ -59,7 +59,21 @@ const login = yup.object().shape({
     .required('Password is required'),
 });
 
+const createProject = yup.object().shape({
+  name: yup
+    .string()
+    .min(3, 'Название должно быть не менее 3 символов')
+    .required('Name is required'),
+  description: yup
+    .string()
+    .min(3, 'Описание должно быть не менее 3 символов')
+    .required('Description is required'),
+});
+
+export type TProject = yup.InferType<typeof createProject>;
+
 export const Schema = {
   register,
   login,
+  createProject,
 };

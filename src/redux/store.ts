@@ -4,12 +4,14 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { appReducer } from '@redux/App/slice';
 import { authReducer } from '@redux/Auth/slice';
+import { projectReducer } from '@redux/Project/slice';
 import { userReducer } from '@redux/User/slice';
 
 const RootReducer = combineReducers({
   app: appReducer,
   auth: authReducer,
   user: userReducer,
+  project: projectReducer,
 });
 
 export const store = configureStore({

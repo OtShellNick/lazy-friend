@@ -84,6 +84,7 @@ const config: Config = {
       },
       gridTemplateColumns: {
         layout: '4rem 1fr',
+        'create-project': '4fr 8fr',
       },
     },
   },
