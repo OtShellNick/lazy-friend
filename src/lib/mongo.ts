@@ -1,9 +1,9 @@
 import { MongoClient, Db, ServerApiVersion } from 'mongodb';
 
-const { MONGO_USERNAME, MONGO_PASSWORD, MONGO_INITDB_DATABASE, NEXT_SERVER_HOST } = process.env;
+const { MONGO_INITDB_DATABASE, MONGODB_URI } = process.env;
 class MongoDbHelper {
   private client: MongoClient;
-  private uri: string = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${NEXT_SERVER_HOST}:27017/?authMechanism=DEFAULT`;
+  private uri: string = `${MONGODB_URI}/?authMechanism=DEFAULT`;
   private dbName: string = MONGO_INITDB_DATABASE || 'test';
   private db: Promise<Db>;
 

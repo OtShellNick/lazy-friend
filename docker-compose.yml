@@ -13,6 +13,8 @@ services:
       - mongo
     environment:
       - MONGODB_URI
+    networks:
+      - app-network
 
   mongo:
     image: mongo
@@ -24,3 +26,9 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
     ports:
       - "27017:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
