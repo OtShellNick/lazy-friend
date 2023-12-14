@@ -71,6 +71,7 @@ const createProject = yup.object().shape({
 });
 
 export type TProject = yup.InferType<typeof createProject>;
+export type TRegister = yup.InferType<typeof register>;
 
 export const Schema = {
   register,

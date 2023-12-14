@@ -19,6 +19,19 @@ export async function POST(request: Request) {
 
   try {
     const data: TUserRegisterData = await request.json();
+    const userData = await users.findOne({ email: data.email });
+
+    if (userData) {
+      return new NextResponse(
+        JSON.stringify({
+          status: 'USER_ALREADY_EXISTS',
+          message: 'Пользователь уже существует - авторизируйтесь используя свои данные',
+        }),
+        {
+          status: 409,
+        },
+      );
+    }
 
     const saveUserData = {
       ...data,
@@ -26,21 +39,22 @@ export async function POST(request: Request) {
       role: 'user',
     };
 
-    const user = await users.insertOne(saveUserData);
+    await users.insertOne(saveUserData);
+
     return new NextResponse(
       JSON.stringify({
         status: 'success',
-        data: user,
+        data: {},
       }),
     );
   } catch (e) {
     return new NextResponse(
       JSON.stringify({
-        status: 'error',
-        message: JSON.stringify(e),
+        status: 'INTERNAL_SERVER_ERROR',
+        message: 'Internal server error',
       }),
       {
-        status: 400,
+        status: 500,
       },
     );
   }

@@ -1,4 +1,4 @@
-import { TNavigationItem, TSpecializationItem } from '@/types';
+import { TDefaultValues, TNavigationItem, TSpecializationItem } from '@/types';
 
 export const SPECIALIZATIONS: TSpecializationItem[] = [
   {
@@ -205,3 +205,14 @@ export const NAVIGATION_MENU: TNavigationItem[] = [
     ],
   },
 ];
+
+export const DEFAULT_VALUES: TDefaultValues = {
+  REGISTRATION_FORM: {
+    name: '',
+    nickname: '',
+    email: '',
+    password: '',
+    repeatPassword: '',
+    specialization: 'other',
+  },
+};

@@ -5,63 +5,36 @@ import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import { SPECIALIZATIONS } from '@/data';
+import { DEFAULT_VALUES, SPECIALIZATIONS } from '@/data';
 import { TUserRegisterData } from '@/types';
-import { Schema } from '@lib/validators';
+import { Schema, TRegister } from '@lib/validators';
 import { registerThunk } from '@redux/Auth/thunks';
-import { useAppDispatch } from '@redux/store';
+import { getAuthData } from '@redux/selectors';
+import { useAppDispatch, useAppSelector } from '@redux/store';
 import { Button } from '@ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@ui/form';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@ui/form';
 import { Input } from '@ui/input';
 import { ScrollArea } from '@ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@ui/select';
 
-type TInputs = {
-  name: string;
-  nickname: string;
-  email: string;
-  password: string;
-  repeatPassword: string;
-  specialization:
-    | 'PM'
-    | 'SA'
-    | 'BA'
-    | 'SD'
-    | 'DM'
-    | 'DevOps'
-    | 'Product'
-    | 'Marketing'
-    | 'SMM'
-    | 'Traffic'
-    | 'MM'
-    | 'QAM'
-    | 'QAA'
-    | 'QAL'
-    | 'Backend'
-    | 'Frontend'
-    | 'Python'
-    | 'Java'
-    | 'Android'
-    | 'IOS'
-    | 'C++'
-    | 'Go'
-    | 'DS'
-    | 'ComputerVision'
-    | 'HR'
-    | 'WEB'
-    | 'Cloud'
-    | 'DataEngineer'
-    | 'other';
-};
-
 export const RegisterForm = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const form = useForm<TInputs>({
+  const { isError, errorMessage } = useAppSelector(getAuthData);
+  const form = useForm<TRegister>({
     resolver: yupResolver(Schema.register),
+    defaultValues: DEFAULT_VALUES.REGISTRATION_FORM,
   });
-  //eslint-disable-next-line
-  const onSubmit: SubmitHandler<TInputs> = data => {
+
+  const onSubmit: SubmitHandler<TRegister> = data => {
     const userData: TUserRegisterData = {
       name: data.name,
       nickname: data.nickname,
@@ -70,8 +43,11 @@ export const RegisterForm = () => {
       specialization: data.specialization,
     };
 
-    dispatch(registerThunk(userData));
-    router.push('/login');
+    dispatch(registerThunk(userData))
+      .unwrap()
+      .then(() => {
+        router.push('/login');
+      });
   };
 
   const renderSpecialization = useMemo(() => {
@@ -183,6 +159,7 @@ export const RegisterForm = () => {
             </FormItem>
           )}
         />
+        {isError && errorMessage ? <FormDescription>{errorMessage}</FormDescription> : null}
         <Button type='submit'>Создать аккаунт</Button>
       </form>
     </Form>

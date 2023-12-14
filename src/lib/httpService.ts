@@ -32,7 +32,7 @@ class HttpService implements IHttpService {
   private readonly axiosInstance: AxiosInstance;
 
   constructor() {
-    this.axiosInstance = axios.create({ baseURL: 'http://192.168.0.238/' });
+    this.axiosInstance = axios.create({ baseURL: process.env.NEXT_AUTH_URL });
     this.retries = 3;
     this.setRequestInterceptor();
     this.setResponseInterceptor();
